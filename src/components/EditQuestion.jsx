@@ -47,13 +47,13 @@ class EditQuestion extends Component {
 
     handleSumbit(values) {
         let question = {
-            id: this.state.questionId,
+            questionId: this.state.questionId,
             questionText: values.questionText,
             answers: values.answers,
             correctAnswer: values.correctAnswer,
             tags: values.tags
         }
-        QuestionService.EditQuestion(question)
+        QuestionService.EditQuestion(this.state.questionId, question)
             .then(() => this.props.history.push('/QuestionList'))
     }
 
