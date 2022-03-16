@@ -14,6 +14,13 @@ class QuestionService {
         return axios.post(`${BASE_URL}/CreateQuestion`, question);
     }
 
+    RetrieveOneQuestion(questionId) {
+        return axios.get(`${BASE_URL}/Question/${questionId}`);
+    }
+
+    EditQuestion(questionId, question) {
+        return axios.put(`${BASE_URL}/UpdateQuestion/${questionId}`, question);
+    }
 
 }
 

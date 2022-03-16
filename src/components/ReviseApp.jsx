@@ -4,6 +4,7 @@ import FormComponent from './FormComponent';
 import HeaderComponent from './HeaderComponent'
 import QuestionList from './QuestionList';
 import AddQuestion from './AddQuestion'
+import EditQuestion from './EditQuestion'
 
 
 class ReviseApp extends Component {
@@ -18,6 +19,7 @@ class ReviseApp extends Component {
                             <Route path="/form/" component={FormComponent} />
                             <Route path="/QuestionList/" component={QuestionList} />
                             <Route path="/AddQuestion/" component={AddQuestion} />
+                            <Route path="/EditQuestion/:questionId/" component={EditQuestion} />
                         </Switch>
                     </Router>
                 </div>

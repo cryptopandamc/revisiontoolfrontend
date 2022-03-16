@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -8,6 +8,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import QuestionService from '../service/QuestionService';
 
+
+
 class QuestionList extends Component {
 
     constructor(props) {
@@ -15,11 +17,9 @@ class QuestionList extends Component {
         this.state = {
             questions: [],
         };
-        console.log("state at start " + this.state)
-        console.log(Object.keys)
-
+    
         this.loadQuestions = this.loadQuestions.bind(this);
-
+        this.updateQuestionClicked = this.updateQuestionClicked.bind(this);
 
     }
 
@@ -38,6 +38,10 @@ class QuestionList extends Component {
                     console.log(this.state)
                 }
             )
+    }
+
+    updateQuestionClicked(questionId) {
+        this.props.history.push(`/EditQuestion/${questionId}`)
     }
 
     render() {
@@ -62,11 +66,12 @@ class QuestionList extends Component {
                                     <TableCell align="right">Option B</TableCell>
                                     <TableCell align="right">Option C</TableCell>
                                     <TableCell align="right">Option D</TableCell>
+                                    <TableCell align="right">Edit Question</TableCell>
                                 </TableRow>
                             </TableHead>
+                         
                             <TableBody>
                                 {this.state.questions.map((question) => (
-
                                     <TableRow key={question.questionId}>
                                         <TableCell align="right">{question.questionText}</TableCell>
                                         {question.answers.map((answer) => (
@@ -74,10 +79,10 @@ class QuestionList extends Component {
                                                 <TableCell align="right">{answer.answerText}</TableCell>
                                             </TableCell>
                                         ))}
-
-
+                                      <TableCell>
+                                        <button className="btn btn-warning" onClick={() =>  this.updateQuestionClicked(question.questionId)}>Edit Question</button>
+                                        </TableCell>
                                     </TableRow>
-
                                 ))}
 
 

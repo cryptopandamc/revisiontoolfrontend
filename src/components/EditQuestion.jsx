@@ -4,25 +4,36 @@ import TagService from '../service/TagService';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import RadioButton from './RadioButton';
 
-class AddQuestion extends Component {
+class EditQuestion extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
+            questionId: this.props.match.params.questionId,
             questionText: '',
             answers: [],
             correctAnswer: '',
-            tags: [ ]
+            tags: []
         }
         this.retrieveAllTags = this.retrieveAllTags.bind(this)
         this.handleSumbit = this.handleSumbit.bind(this)
         this.handleChange = this.handleChange.bind(this)
     }
 
-    componentDidMount() {
-        this.retrieveAllTags();
-    }
+   componentDidMount() {
+       QuestionService.RetrieveOneQuestion(this.state.questionId).then((response) => {
+           console.log(response);
+           this.setState({
+            questionText: response.data.questionText,
+            answers: response.data.answers,
+            correctAnswer: response.data.correctAnswer,
+            tags: response.data.tags
+           })
+       })
+       this.retrieveAllTags()
+   }
 
+   
     retrieveAllTags() {
         TagService.retrieveAllTags()
             .then(
@@ -36,12 +47,13 @@ class AddQuestion extends Component {
 
     handleSumbit(values) {
         let question = {
+            id: this.state.questionId,
             questionText: values.questionText,
             answers: values.answers,
             correctAnswer: values.correctAnswer,
             tags: values.tags
         }
-        QuestionService.AddQuestion(question)
+        QuestionService.EditQuestion(question)
             .then(() => this.props.history.push('/QuestionList'))
     }
 
@@ -55,7 +67,7 @@ class AddQuestion extends Component {
         return (
 
             <div>
-                <h1>Add A Question</h1>
+                <h1>Edit A Question</h1>
                 <div className="container">
                     <Formik
                         initialValues={{ questionText, answers, correctAnswer, tags }}
@@ -72,8 +84,6 @@ class AddQuestion extends Component {
                                     <Field className="form-control" type="text" name="questionText" required></Field>
                                 </fieldset>
 
-                                
-
                                 <fieldset className="form-group">
                                     <Field as="select" name="tags" multiple>
                                         {tags.map((tag, tagId) => (
@@ -83,60 +93,59 @@ class AddQuestion extends Component {
                                         ))}
                                     </Field >
                                 </fieldset>
-                               
 
                                 <div>
                                     <label>Answer A</label>
                                     <div>
-                                    <Field name="answers[0].answerText" required />
+                                        <Field name="answers[0].answerText" required />
                                     </div>
-                                     <div>
-                                    <label>Answer B</label>
+                                    <div>
+                                        <label>Answer B</label>
                                     </div>
-                                     <div>
-                                    <Field name="answers[1].answerText" required/>
+                                    <div>
+                                        <Field name="answers[1].answerText" required />
                                     </div>
-                                     <div>
-                                    <label>Answer C</label>
+                                    <div>
+                                        <label>Answer C</label>
                                     </div>
-                                     <div>
-                                    <Field name="answers[2].answerText" required/>
+                                    <div>
+                                        <Field name="answers[2].answerText" required />
                                     </div>
-                                     <div>
-                                    <label>Answer D</label>
+                                    <div>
+                                        <label>Answer D</label>
                                     </div>
-                                     <div>
-                                    <Field name="answers[3].answerText" required/>
+                                    <div>
+                                        <Field name="answers[3].answerText" required />
                                     </div>
                                 </div>
 
                                 <fieldset className="form-group" required>
-                                <Field
-                                    component={RadioButton}
-                                    name="correctAnswer"
-                                    id="A"
-                                    label="A"
-                                />
-                                <Field
-                                    component={RadioButton}
-                                    name="correctAnswer"
-                                    id="B"
-                                    label="B"
-                                />
-                                <Field
-                                    component={RadioButton}
-                                    name="correctAnswer"
-                                    id="C"
-                                    label="C"
-                                />
-                                <Field
-                                    component={RadioButton}
-                                    name="correctAnswer"
-                                    id="D"
-                                    label="D"
-                                />
+                                    <Field
+                                        component={RadioButton}
+                                        name="correctAnswer"
+                                        id="A"
+                                        label="A"
+                                    />
+                                    <Field
+                                        component={RadioButton}
+                                        name="correctAnswer"
+                                        id="B"
+                                        label="B"
+                                    />
+                                    <Field
+                                        component={RadioButton}
+                                        name="correctAnswer"
+                                        id="C"
+                                        label="C"
+                                    />
+                                    <Field
+                                        component={RadioButton}
+                                        name="correctAnswer"
+                                        id="D"
+                                        label="D"
+                                    />
                                 </fieldset>
-                                
+
                                 <button className="btn btn-success" type="submit">
                                     Submit
                                 </button>
@@ -151,4 +160,4 @@ class AddQuestion extends Component {
 
 }
 
-export default AddQuestion
+export default EditQuestion
