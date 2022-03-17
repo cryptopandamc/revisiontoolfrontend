@@ -8,16 +8,17 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import QuestionService from '../service/QuestionService';
 
-
+//const listItems = numbers.map((number) =>    <ListItem key={number.toString()}              value={number} />  );
 
 class QuestionList extends Component {
+
 
     constructor(props) {
         super(props);
         this.state = {
             questions: [],
         };
-    
+
         this.loadQuestions = this.loadQuestions.bind(this);
         this.updateQuestionClicked = this.updateQuestionClicked.bind(this);
 
@@ -69,18 +70,16 @@ class QuestionList extends Component {
                                     <TableCell align="right">Edit Question</TableCell>
                                 </TableRow>
                             </TableHead>
-                         
+
                             <TableBody>
                                 {this.state.questions.map((question) => (
                                     <TableRow key={question.questionId}>
                                         <TableCell align="right">{question.questionText}</TableCell>
                                         {question.answers.map((answer) => (
-                                            <TableCell key={answer.answerId}>
-                                                <TableCell align="right">{answer.answerText}</TableCell>
-                                            </TableCell>
+                                            <TableCell key={answer.answerId}>{answer.answerText}</TableCell>
                                         ))}
-                                      <TableCell>
-                                        <button className="btn btn-warning" onClick={() =>  this.updateQuestionClicked(question.questionId)}>Edit Question</button>
+                                        <TableCell>
+                                            <button className="btn btn-warning" onClick={() => this.updateQuestionClicked(question.questionId)}>Edit Question</button>
                                         </TableCell>
                                     </TableRow>
                                 ))}

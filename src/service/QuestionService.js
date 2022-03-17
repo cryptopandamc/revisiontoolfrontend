@@ -2,8 +2,6 @@ import axios from 'axios'
 
 const BASE_URL = 'http://localhost:8088/revise/api/v1/question'
 
-
-
 class QuestionService {
 
     GetQuestions() {
