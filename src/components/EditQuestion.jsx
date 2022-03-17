@@ -20,20 +20,20 @@ class EditQuestion extends Component {
         this.handleChange = this.handleChange.bind(this)
     }
 
-   componentDidMount() {
-       QuestionService.RetrieveOneQuestion(this.state.questionId).then((response) => {
-           console.log(response);
-           this.setState({
-            questionText: response.data.questionText,
-            answers: response.data.answers,
-            correctAnswer: response.data.correctAnswer,
-            tags: response.data.tags
-           })
-       })
-       this.retrieveAllTags()
-   }
+    componentDidMount() {
+        QuestionService.RetrieveOneQuestion(this.state.questionId).then((response) => {
+            console.log(response);
+            this.setState({
+                questionText: response.data.questionText,
+                answers: response.data.answers,
+                correctAnswer: response.data.correctAnswer,
+                tags: this.state.tags
+            })
+        })
+        this.retrieveAllTags()
+    }
 
-   
+
     retrieveAllTags() {
         TagService.retrieveAllTags()
             .then(
@@ -145,10 +145,11 @@ class EditQuestion extends Component {
                                         label="D"
                                     />
                                 </fieldset>
-
-                                <button className="btn btn-success" type="submit">
-                                    Submit
+                                <div>
+                                    <button className="btn btn-success" type="submit">
+                                        Submit
                                 </button>
+                                </div>
                             </Form>
                         )}
                     </Formik>
