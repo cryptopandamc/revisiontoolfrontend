@@ -8,8 +8,6 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import QuestionService from '../service/QuestionService';
 
-//const listItems = numbers.map((number) =>    <ListItem key={number.toString()}              value={number} />  );
-
 class QuestionList extends Component {
 
 

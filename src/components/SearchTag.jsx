@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import TagService from '../service/TagService';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field } from 'formik';
+import QuestionService from '../service/QuestionService';
+import RadioButton from './RadioButton';
 
 
 class SearchTag extends Component {
@@ -8,9 +10,12 @@ class SearchTag extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            tags: []
+            tags: [],
+            tagId: ''
         }
         this.retrieveAllTags = this.retrieveAllTags.bind(this)
+        this.handleSumbit = this.handleSumbit.bind(this)
+        this.dropdownChanged = this.dropdownChanged.bind(this)
     }
 
     componentDidMount() {
@@ -28,8 +33,17 @@ class SearchTag extends Component {
             )
     }
 
+    dropdownChanged(e) {
+        this.setState({ tagId: e.target.value });
+    }
+
+    handleSumbit(values) {
+        QuestionService.GetByTag(this.state.tagId)
+            .then(() => this.props.history.push('/QuestionList'))
+    }
+
     render() {
-        let { tags } = this.state;
+        let { tags, tagId } = this.state;
         return (
 
             <div>
@@ -45,14 +59,13 @@ class SearchTag extends Component {
                         {(props) => (
                             <Form>
                                 <fieldset className="form-group">
-                                    <Field as="select" name="tags" >
-                                        {tags.map((tag, tagId) => (
-                                            <option key={tag.tagId}>
-                                                {tag.name}
-                                            </option>
-                                        ))}
-                                    </Field >
+                                    <Field as="select" name="tags"  value={tagId} onChange={this.dropdownChanged.bind(this)}>
+                                        {tags.map(tag =>
+                                            <option key={tag.tagId} value={tag.tagId}>{tag.name}</option>
+                                        )}
+                                    </Field>
                                 </fieldset>
+
                                 <div>
                                     <button className="btn btn-success" type="submit">
                                         Submit

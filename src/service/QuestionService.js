@@ -20,6 +20,10 @@ class QuestionService {
         return axios.put(`${BASE_URL}/UpdateQuestion/${questionId}`, question);
     }
 
+    GetByTag(tagId) {
+        return axios.get(`${BASE_URL}/GetByTag?tagId=${tagId}`);
+    }
+
 }
 
 export default new QuestionService()
