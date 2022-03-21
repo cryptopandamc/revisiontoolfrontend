@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import TagService from '../service/TagService';
-import { Formik, Form, Field } from 'formik';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 import QuestionService from '../service/QuestionService';
-import RadioButton from './RadioButton';
-
 
 class SearchTag extends Component {
 
@@ -11,11 +15,10 @@ class SearchTag extends Component {
         super(props)
         this.state = {
             tags: [],
-            tagId: ''
         }
+
         this.retrieveAllTags = this.retrieveAllTags.bind(this)
-        this.handleSumbit = this.handleSumbit.bind(this)
-        this.dropdownChanged = this.dropdownChanged.bind(this)
+        this.getTagsClicked = this.getTagsClicked.bind(this)
     }
 
     componentDidMount() {
@@ -27,55 +30,56 @@ class SearchTag extends Component {
             .then(
                 response => {
                     this.setState({
-                        tags: response.data
+                        tags: response.data,
                     })
                 }
             )
     }
 
-    dropdownChanged(e) {
-        this.setState({ tagId: e.target.value });
-    }
 
-    handleSumbit(values) {
-        QuestionService.GetByTag(this.state.tagId)
-            .then(() => this.props.history.push('/QuestionList'))
+    getTagsClicked(tagId) {
+        this.props.history.push(`/GetByTag/${tagId}`)
     }
 
     render() {
-        let { tags, tagId } = this.state;
+
         return (
 
-            <div>
-                <h1>Get Questions by subject</h1>
-                <div className="container">
-                    <Formik
-                        initialValues={{ tags }}
-                        onSubmit={this.handleSumbit}
-                        validateOnChange={false}
-                        validate={this.validate}
-                        enableReinitialize={true}
-                    >
-                        {(props) => (
-                            <Form>
-                                <fieldset className="form-group">
-                                    <Field as="select" name="tags"  value={tagId} onChange={this.dropdownChanged.bind(this)}>
-                                        {tags.map(tag =>
-                                            <option key={tag.tagId} value={tag.tagId}>{tag.name}</option>
-                                        )}
-                                    </Field>
-                                </fieldset>
+            <div className="container">
 
-                                <div>
-                                    <button className="btn btn-success" type="submit">
-                                        Submit
-                                </button>
-                                </div>
-                            </Form>
-                        )}
-                    </Formik>
+                <div className="col-md-12">
+                    <h4>Choose questions from these subjects</h4>
+
+
+                    <TableContainer component={Paper}>
+                        <Table stickyHeader aria-label="sticky table">
+
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell align="right">Tag</TableCell>
+                                    <TableCell align="right">Tag</TableCell>
+                                </TableRow>
+                            </TableHead>
+
+                            <TableBody>
+                                {this.state.tags.map((tag) => (
+                                    <TableRow key={tag.tagId}>
+
+                                        <TableCell align="right">{tag.name}</TableCell>
+                                        <TableCell align="right">
+                                        <button className="btn btn-warning" onClick={() => this.getTagsClicked(tag.tagId)}>Edit Question</button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+
+
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+
                 </div>
-            </div>
+            </div >
+
         );
     }
 

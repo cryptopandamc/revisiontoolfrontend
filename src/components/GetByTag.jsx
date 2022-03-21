@@ -8,26 +8,27 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import QuestionService from '../service/QuestionService';
 
-class QuestionList extends Component {
+class GetByTag extends Component {
 
 
     constructor(props) {
         super(props);
         this.state = {
+            tagId: this.props.match.params.tagId,
             questions: [],
-        };
 
-        this.loadQuestions = this.loadQuestions.bind(this);
-        this.updateQuestionClicked = this.updateQuestionClicked.bind(this);
+        };
+        this.loadQuestionsByTag = this.loadQuestionsByTag.bind(this);
+
 
     }
 
     componentDidMount() {
-        this.loadQuestions();
+        this.loadQuestionsByTag(this.state.tagId);
     }
 
-    loadQuestions() {
-        QuestionService.GetQuestions()
+    loadQuestionsByTag(tagId) {
+        QuestionService.GetByTag(tagId)
             .then(
                 response => {
                     this.setState({
@@ -37,9 +38,6 @@ class QuestionList extends Component {
             )
     }
 
-    updateQuestionClicked(questionId) {
-        this.props.history.push(`/EditQuestion/${questionId}`)
-    }
 
     render() {
 
@@ -49,7 +47,7 @@ class QuestionList extends Component {
             <div className="container">
 
                 <div className="col-md-12">
-                    <h4>Basic questions list</h4>
+                    <h4> questions by tag</h4>
 
 
                     <TableContainer component={Paper}>
@@ -74,7 +72,7 @@ class QuestionList extends Component {
                                             <TableCell key={answer.answerId}>{answer.answerText}</TableCell>
                                         ))}
                                         <TableCell>
-                                            <button className="btn btn-warning" onClick={() => this.updateQuestionClicked(question.questionId)}>Edit Question</button>
+                                            <button className="btn btn-warning" onClick={() => this.updateQuestionClicked(question.questionId)}>Get questions on this topic</button>
                                         </TableCell>
                                     </TableRow>
                                 ))}
@@ -94,4 +92,4 @@ class QuestionList extends Component {
 }
 
 
-export default QuestionList
+export default GetByTag 

@@ -22,7 +22,6 @@ class EditQuestion extends Component {
 
     componentDidMount() {
         QuestionService.RetrieveOneQuestion(this.state.questionId).then((response) => {
-            console.log(response);
             this.setState({
                 questionText: response.data.questionText,
                 answers: response.data.answers,

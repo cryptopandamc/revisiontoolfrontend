@@ -21,7 +21,7 @@ class QuestionService {
     }
 
     GetByTag(tagId) {
-        return axios.get(`${BASE_URL}/GetByTag?tagId=${tagId}`);
+        return axios.get(`${BASE_URL}/GetByTag/${tagId}`);
     }
 
 }
