@@ -24,6 +24,9 @@ class QuestionService {
         return axios.get(`${BASE_URL}/GetByTag/${tagId}`);
     }
 
+    GetQuestionsNotApproved() {
+        return axios.get(`${BASE_URL}/GetQuestionsNotApproved`);
+    }
 }
 
 export default new QuestionService()

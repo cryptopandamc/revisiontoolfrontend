@@ -17,6 +17,7 @@ class HeaderComponent extends Component {
                         <li><Link className="nav-link" to="/AddQuestion">Add a question</Link></li>
                         <li><Link className="nav-link" to="/QuestionList">Question List</Link></li>                        
                         <li><Link className="nav-link" to="/SearchTag">Search questions by subject</Link></li>                        
+                        <li><Link className="nav-link" to="/UnapprovedQuestions">Show questions that require approval</Link></li>                        
                     </ul>
                 </nav>
             </header>
