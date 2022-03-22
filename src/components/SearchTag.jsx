@@ -64,10 +64,9 @@ class SearchTag extends Component {
                             <TableBody>
                                 {this.state.tags.map((tag) => (
                                     <TableRow key={tag.tagId}>
-
                                         <TableCell align="right">{tag.name}</TableCell>
                                         <TableCell align="right">
-                                        <button className="btn btn-warning" onClick={() => this.getTagsClicked(tag.tagId)}>Edit Question</button>
+                                        <button className="btn btn-warning" onClick={() => this.getTagsClicked(tag.tagId)}>Get Questions on this Topic</button>
                                         </TableCell>
                                     </TableRow>
                                 ))}
