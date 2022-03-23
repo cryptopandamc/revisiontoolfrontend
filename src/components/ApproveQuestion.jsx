@@ -4,7 +4,11 @@ import TagService from '../service/TagService';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import RadioButton from './RadioButton';
 
-class EditQuestion extends Component {
+const handleUpdate = () => {
+    console.log("change value...")
+  }
+
+class ApproveQuestion extends Component {
 
     constructor(props) {
         super(props)
@@ -13,16 +17,16 @@ class EditQuestion extends Component {
             questionText: '',
             answers: [],
             correctAnswer: '',
-            tags: []
+            tags: [],
+            currentTags: []
         }
         this.retrieveAllTags = this.retrieveAllTags.bind(this)
-        this.handleSumbit = this.handleSumbit.bind(this)
-        this.handleChange = this.handleChange.bind(this)
+        this.approveQuestionClicked = this.approveQuestionClicked.bind(this)
+      //  this.handleChange = this.ApproveQuestion.bind(this)
     }
 
     componentDidMount() {
         QuestionService.RetrieveOneQuestion(this.state.questionId).then((response) => {
-            console.log(response);
             this.setState({
                 questionText: response.data.questionText,
                 answers: response.data.answers,
@@ -45,7 +49,7 @@ class EditQuestion extends Component {
             )
     }
 
-    handleSumbit(values) {
+    approveQuestionClicked(values) {
         let question = {
             questionId: this.state.questionId,
             questionText: values.questionText,
@@ -53,7 +57,7 @@ class EditQuestion extends Component {
             correctAnswer: values.correctAnswer,
             tags: values.tags
         }
-        QuestionService.EditQuestion(this.state.questionId, question)
+        QuestionService.ApproveQuestion(this.state.questionId, question)
             .then(() => this.props.history.push('/QuestionList'))
     }
 
@@ -63,15 +67,15 @@ class EditQuestion extends Component {
 
 
     render() {
-        let { questionText, answers, correctAnswer, tags } = this.state;
+        let { questionId, question, questionText, answers, correctAnswer, tags } = this.state;
         return (
 
             <div>
-                <h1>Edit A Question</h1>
+                <h1>Approve this Question</h1>
                 <div className="container">
-                    <Formik
+                <Formik
                         initialValues={{ questionText, answers, correctAnswer, tags }}
-                        onSubmit={this.handleSumbit}
+                        onSubmit={this.approveQuestionClicked}
                         validateOnChange={false}
                         validate={this.validate}
                         enableReinitialize={true}
@@ -81,13 +85,13 @@ class EditQuestion extends Component {
                                 <ErrorMessage name="question.questionText" component="div" className="alert alert-warning" />
                                 <fieldset className="form-group">
                                     <label>Question Text: </label>
-                                    <Field className="form-control" type="text" name="questionText" required></Field>
+                                    <Field className="form-control" type="text" name="questionText" value={questionText} required></Field>
                                 </fieldset>
 
                                 <fieldset className="form-group">
-                                    <Field as="select" name="tags" multiple>
+                                    <Field as="select" name="tags" multiple value={this.state.tags}>
                                         {tags.map((tag, tagId) => (
-                                            <option key={tag.tagId}>
+                                            <option key={tag.tagId} value={tags} selected={tags}>
                                                 {tag.name}
                                             </option>
                                         ))}
@@ -163,4 +167,4 @@ class EditQuestion extends Component {
 
 }
 
-export default EditQuestion
+export default ApproveQuestion

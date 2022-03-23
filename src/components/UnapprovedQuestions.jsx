@@ -14,12 +14,13 @@ class UnapprovedQuestions extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            questionId: this.props.match.params.questionId,
             questions: [],
         };
 
         this.GetQuestionsNotApproved = this.GetQuestionsNotApproved.bind(this);
-        this.updateQuestionClicked = this.updateQuestionClicked.bind(this);
-
+        this.approveQuestionClicked = this.approveQuestionClicked.bind(this);
+        this.approveQuestion = this.approveQuestion.bind(this);
     }
 
     componentDidMount() {
@@ -37,8 +38,14 @@ class UnapprovedQuestions extends Component {
             )
     }
 
-    updateQuestionClicked(questionId) {
-        this.props.history.push(`/EditQuestion/${questionId}`)
+    approveQuestion(questionId, values) {
+       
+     this.props.history.push(`/ApproveQuestion/${questionId}`)
+    }
+
+    approveQuestionClicked(questionId, question) {
+     //   QuestionService.ApproveQuestion(questionId, question);
+        this.props.history.push(`/ApproveQuestion/${questionId}`)
     }
 
     render() {
@@ -49,7 +56,7 @@ class UnapprovedQuestions extends Component {
             <div className="container">
 
                 <div className="col-md-12">
-                    <h4>Basic questions list</h4>
+                    <h4>Unapproved questions list</h4>
 
 
                     <TableContainer component={Paper}>
@@ -62,6 +69,7 @@ class UnapprovedQuestions extends Component {
                                     <TableCell align="right">Option B</TableCell>
                                     <TableCell align="right">Option C</TableCell>
                                     <TableCell align="right">Option D</TableCell>
+                                    <TableCell align="right">Correct answer</TableCell>
                                     <TableCell align="right">Edit Question</TableCell>
                                 </TableRow>
                             </TableHead>
@@ -73,9 +81,8 @@ class UnapprovedQuestions extends Component {
                                         {question.answers.map((answer) => (
                                             <TableCell key={answer.answerId}>{answer.answerText}</TableCell>
                                         ))}
-                                        <TableCell>
-                                            <button className="btn btn-warning" onClick={() => this.updateQuestionClicked(question.questionId)}>Edit Question</button>
-                                        </TableCell>
+                                        <TableCell>{question.correctAnswer}</TableCell>
+                                         <TableCell>   <button className="btn btn-warning" onClick={() => this.approveQuestionClicked(question.questionId)}>Approve Question</button></TableCell>
                                     </TableRow>
                                 ))}
 

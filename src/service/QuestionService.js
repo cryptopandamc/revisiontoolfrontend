@@ -27,6 +27,11 @@ class QuestionService {
     GetQuestionsNotApproved() {
         return axios.get(`${BASE_URL}/GetQuestionsNotApproved`);
     }
+
+    ApproveQuestion(questionId, question) {
+        console.log("getting here");
+        return axios.put(`${BASE_URL}/ApproveQuestion/${questionId}`, question); 
+    }
 }
 
 export default new QuestionService()

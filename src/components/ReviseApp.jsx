@@ -8,6 +8,7 @@ import EditQuestion from './EditQuestion'
 import SearchTag from './SearchTag'
 import GetByTag from './GetByTag'
 import UnapprovedQuestions from './UnapprovedQuestions'
+import ApproveQuestion from './ApproveQuestion'
 
 
 class ReviseApp extends Component {
@@ -26,6 +27,7 @@ class ReviseApp extends Component {
                             <Route path="/SearchTag" component={SearchTag} />
                             <Route path="/GetByTag/:tagId" component={GetByTag} />
                             <Route path="/UnapprovedQuestions" component={UnapprovedQuestions} />
+                            <Route path="/ApproveQuestion/:questionId" component={ApproveQuestion} />
                         </Switch>
                     </Router>
                 </div>
