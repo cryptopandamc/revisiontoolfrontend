@@ -9,6 +9,9 @@ import SearchTag from './SearchTag'
 import GetByTag from './GetByTag'
 import UnapprovedQuestions from './UnapprovedQuestions'
 import ApproveQuestion from './ApproveQuestion'
+import SignUpForm from './SignUpForm'
+import FormikClass from './FormikClass'
+
 
 
 class ReviseApp extends Component {
@@ -28,6 +31,10 @@ class ReviseApp extends Component {
                             <Route path="/GetByTag/:tagId" component={GetByTag} />
                             <Route path="/UnapprovedQuestions" component={UnapprovedQuestions} />
                             <Route path="/ApproveQuestion/:questionId" component={ApproveQuestion} />
+                            <Route path="/SignUpForm" component={SignUpForm} />
+                            <Route path="/FormikClass" component={FormikClass} />
+
+                           
                         </Switch>
                     </Router>
                 </div>
