@@ -66,9 +66,8 @@ class EditQuestion extends Component {
         let { questionText, answers, correctAnswer, tags } = this.state;
         return (
 
-            <div>
-                <h1>Edit A Question</h1>
-                <div className="container">
+            <div className="container">
+                <div className="col-md-12">
                     <Formik
                         initialValues={{ questionText, answers, correctAnswer, tags }}
                         onSubmit={this.handleSumbit}
@@ -78,14 +77,16 @@ class EditQuestion extends Component {
                     >
                         {(props) => (
                             <Form>
+                                 <fieldset>
+                                    <legend >Edit this Question</legend>
                                 <ErrorMessage name="question.questionText" component="div" className="alert alert-warning" />
                                 <fieldset className="form-group">
                                     <label>Question Text: </label>
-                                    <Field className="form-control" type="text" name="questionText" required></Field>
+                                    <Field className="widthNinety" type="text" name="questionText" required></Field>
                                 </fieldset>
 
-                                <fieldset className="form-group">
-                                    <Field as="select" name="tags" multiple>
+                                <fieldset >
+                                    <Field as="select" name="tags" multiple className="widthNinety">
                                         {tags.map((tag, tagId) => (
                                             <option key={tag.tagId}>
                                                 {tag.name}
@@ -99,25 +100,25 @@ class EditQuestion extends Component {
                                 <div>
                                     <label>Answer A</label>
                                     <div>
-                                        <Field name="answers[0].answerText" required />
+                                        <Field name="answers[0].answerText" required  className="widthNinety"/>
                                     </div>
                                     <div>
                                         <label>Answer B</label>
                                     </div>
                                     <div>
-                                        <Field name="answers[1].answerText" required />
+                                        <Field name="answers[1].answerText" required className="widthNinety"/>
                                     </div>
                                     <div>
                                         <label>Answer C</label>
                                     </div>
                                     <div>
-                                        <Field name="answers[2].answerText" required />
+                                        <Field name="answers[2].answerText" required className="widthNinety"/>
                                     </div>
                                     <div>
                                         <label>Answer D</label>
                                     </div>
                                     <div>
-                                        <Field name="answers[3].answerText" required />
+                                        <Field name="answers[3].answerText" required className="widthNinety"/>
                                     </div>
                                 </div>
 
@@ -153,7 +154,7 @@ class EditQuestion extends Component {
                                         Submit
                                 </button>
                                 </div>
-                                
+                                </fieldset>
                             </Form>
                         )}
                     </Formik>

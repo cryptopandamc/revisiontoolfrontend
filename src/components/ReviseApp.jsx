@@ -32,9 +32,7 @@ class ReviseApp extends Component {
                             <Route path="/UnapprovedQuestions" component={UnapprovedQuestions} />
                             <Route path="/ApproveQuestion/:questionId" component={ApproveQuestion} />
                             <Route path="/SignUpForm" component={SignUpForm} />
-                            <Route path="/FormikClass" component={FormikClass} />
-
-                           
+                            <Route path="/FormikClass" component={FormikClass} />     
                         </Switch>
                     </Router>
                 </div>

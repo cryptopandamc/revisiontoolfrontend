@@ -36,3 +36,22 @@
     transform: rotate(360deg);
   }
 }
+
+.redBorder {border-style: outset;
+  border-color: red;
+}
+
+.widthNinety {
+  width: 90%;
+}
+
+.floatLeft {
+  float: left;
+}
+
+legend {
+  background-color: gray;
+  color: white;
+  padding: 5px 10px;
+  float: left;
+}
